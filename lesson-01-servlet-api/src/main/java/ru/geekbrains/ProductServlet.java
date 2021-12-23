@@ -25,23 +25,28 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter wr = resp.getWriter();
         if (req.getParameter("id") != null) {
-            // TODO
+            Product pr = productRepository.findById(Long.parseLong(req.getParameter("id")));
+            wr.println("<th>Id</th>");
+            wr.println(req.getParameter("id"));
+            wr.println("<th>Name</th>");
+            wr.println("<th>" + pr.getName() + "</th>");
+
         } else if (req.getPathInfo() == null || req.getPathInfo().equals("/")) {
             wr.println("<table>");
-
             wr.println("<tr>");
             wr.println("<th>Id</th>");
             wr.println("<th>Name</th>");
+            wr.println("<th>Path</th>");
             wr.println("</tr>");
 
             for (Product product : productRepository.findAll()) {
+
                 wr.println("<tr>");
                 wr.println("<td>" + product.getId() + "</td>");
                 wr.println("<td>" + product.getName() + "</td>");
-                // TODO <a href='product?id=12'></a>
+                wr.println("<td>" + "<a href>"  + req.getContextPath() + "/product?id=" + product.getId() + "</a>" + "</td>");
                 wr.println("</tr>");
             }
-
             wr.println("</table>");
         }
     }
