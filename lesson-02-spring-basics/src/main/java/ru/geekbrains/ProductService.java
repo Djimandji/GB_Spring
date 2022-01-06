@@ -15,9 +15,6 @@ public class ProductService {
 
     @PostConstruct
     public void init() {
-        productRepository.save(new Product(null, "Product 1"));
-        productRepository.save(new Product(null, "Product 2"));
-        productRepository.save(new Product(null, "Product 3"));
     }
 
     public long count() {
