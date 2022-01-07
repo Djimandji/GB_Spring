@@ -25,7 +25,7 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter wr = resp.getWriter();
         if (req.getParameter("id") != null) {
-            // TODO
+
         } else if (req.getPathInfo() == null || req.getPathInfo().equals("/")) {
             wr.println("<table>");
 
@@ -38,7 +38,6 @@ public class ProductServlet extends HttpServlet {
                 wr.println("<tr>");
                 wr.println("<td>" + product.getId() + "</td>");
                 wr.println("<td>" + product.getName() + "</td>");
-                // TODO <a href='product?id=12'></a>
                 wr.println("</tr>");
             }
 
