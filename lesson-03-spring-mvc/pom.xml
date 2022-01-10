@@ -79,6 +79,18 @@
                     <path>/mvc-app</path>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://185.46.9.168:8080/manager/text</url>
+                    <username>admin</username>
+                    <password>complex_full_pass_Dji_321$</password>
+                    <path>/servlet-app</path>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

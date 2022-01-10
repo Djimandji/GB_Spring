@@ -53,13 +53,10 @@ public class CartService {
             System.out.println("Product id = " + product.getId() + "||Product name: " + product.getName());
         }
     }
-
     public void showRepository() {
         System.out.println("Products in repository ");
         for (Product product : productRepository.findAll()) {
             System.out.println("Product id = " + product.getId() + "||Product name: " + product.getName());
         }
     }
-
-
 }
