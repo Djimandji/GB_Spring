@@ -1,14 +1,19 @@
 package ru.geekbrains.persist;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
+
 public class Product {
 
     private Long id;
 
+    @NotBlank
     private String name;
 
-    // TODO
     private String description;
-    // TODO
+
+    @PositiveOrZero
     private Float price;
 
     public Product(Long id, String name, Float price, String description) {
