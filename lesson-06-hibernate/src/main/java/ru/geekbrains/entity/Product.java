@@ -19,9 +19,7 @@ public class Product {
 
     @Column (nullable = false)
     private BigDecimal price;
-//
-//    @ManyToMany
-//    private List<Customer> customers;
+
 
     @OneToMany (
             mappedBy = "product",
