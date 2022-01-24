@@ -9,7 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 
-public class CustomerDao {
+public class CustomerDao{
 
     EntityManagerFactory emFactory;
 

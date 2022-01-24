@@ -1,18 +1,28 @@
 package ru.geekbrains.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.persist.Product;
 import ru.geekbrains.persist.ProductRepository;
+import ru.geekbrains.persist.ProductSpecification;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 
     private final ProductRepository productRepository;
+    public static final Logger logger = LoggerFactory.getLogger(Product.class);
 
     @Autowired
     public ProductController(ProductRepository productRepository) {
@@ -20,8 +30,20 @@ public class ProductController {
     }
 
     @GetMapping
-    public String listPage(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+    public String listPage(Model model,
+                           @RequestParam("nameFilter") Optional<String> nameFilter,
+                            @RequestParam("priceFilter") Optional<String> priceFilter){
+        logger.info("Product filter with name pattern {}", nameFilter.orElse(null));
+        logger.info("Product filter with price pattern {}", priceFilter.orElse(null));
+
+        //TODO
+        Specification<Product> spec = Specification.where(null);
+        if (nameFilter.isPresent() && !nameFilter.get().isBlank()) {
+            spec.and(ProductSpecification.nameLike(nameFilter.get()));
+        }
+
+
+        model.addAttribute("products", productRepository.findAll(spec));
         return "product";
     }
 
@@ -39,8 +61,17 @@ public class ProductController {
     }
 
     @PostMapping
-    public String save(Product product) {
+    public String save(@Valid Product product, BindingResult result) {
+        if (result.hasErrors()) {
+            return "product_form";
+        }
             productRepository.save(product);
+        return "redirect:/product";
+    }
+
+    @GetMapping("/delete{id}")
+    public String delete (@PathVariable("id") Long id) {
+        productRepository.delete(productRepository.findById(id).get());
         return "redirect:/product";
     }
 

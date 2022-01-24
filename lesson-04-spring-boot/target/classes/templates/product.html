@@ -38,6 +38,19 @@
             <a class="btn btn-primary" th:href="@{/product/new}">Add Product</a>
         </div>
 
+        <form class="form-inline mt-3" method="get">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="name-filter" class="sr-only">Name filter:</label>
+                <input th:value="${param.nameFilter}" type="text" class="form-control"
+                       name="nameFilter" id="name-filter" placeholder="Name filter">
+                <label for="price-filter" class="sr-only">Name filter:</label>
+                <input th:value="${param.priceFilter}" type="text" class="form-control"
+                       name="priceFilter" id="price-filter" placeholder="Price filter">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Apply</button>
+        </form>
+
+
         <div class="col-12">
             <table class="table table-bordered my-2">
                 <thead>
@@ -57,7 +70,7 @@
                     <td th:text="${product.description}"></td>
                     <td>
                         <a class="btn btn-success" th:href="@{/product/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger" href="#"><i class="far fa-trash-alt"></i></a>
+                        <a class="btn btn-danger" th:href="@{/product/delete{id}(id = ${product.id})}"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
                 </tbody>
