@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.persist.UserRepository;
 
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
@@ -27,7 +28,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .map(user -> new User(
                         user.getLogin(),
                         user.getPassword(),
-                        Collections.singletonList(new SimpleGrantedAuthority("ADMIN"))
+                        user.getRoles().stream()
+                                .map(r -> new SimpleGrantedAuthority(r.getName()))
+                                .collect(Collectors.toList() )
                 )).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

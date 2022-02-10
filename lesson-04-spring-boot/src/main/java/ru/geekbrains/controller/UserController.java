@@ -2,6 +2,7 @@ package ru.geekbrains.controller;
 
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +58,7 @@ public class UserController {
         return "redirect:/user";
     }
 
+    @Secured("ROLE_SUPER_ADMIN")
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
